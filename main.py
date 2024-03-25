@@ -7,13 +7,14 @@ from Recorder import Recorder, cut_and_save_video
 def main():
     cronometer = Cronometer()
     cronometer.start()
-    recorder = Recorder(1280, 720, 30)  # Change the last number to your camera's fps
+    cameraFPS = 10
+    recorder = Recorder(1280, 720, cameraFPS)
     highlights_amount = 0
     while True:
         if not recorder.isRecording:
             recorder.isRecording = True
         if not recorder.out.isOpened():
-            recorder.out.open('output.mp4', recorder.fourcc, 10, (1280, 720))
+            recorder.startRecording()
         ret, frame = recorder.cap.read()
         if ret:
             cv2.imshow('video', frame)
@@ -26,9 +27,9 @@ def main():
             recorder.isRecording = False
             recorder.out.release()
             if cronometer.seconds < 30:
-                cut_and_save_video(f"output{highlights_amount}.mp4", 0, cronometer.seconds)
+                cut_and_save_video(f"outputHighlight{highlights_amount}.mp4", 0, cronometer.seconds)
             else:
-                cut_and_save_video(f"output{highlights_amount}.mp4", cronometer.seconds - 30, cronometer.seconds)
+                cut_and_save_video(f"outputHighlight{highlights_amount}.mp4", cronometer.seconds - 30, cronometer.seconds)
             cronometer.seconds = 0
             highlights_amount += 1
             if os.path.exists('output.mp4'):

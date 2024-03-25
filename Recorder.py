@@ -17,5 +17,10 @@ class Recorder:
         self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
         self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
         self.fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
+        self.cameraFPS = cameraFPS
         self.out = cv2.VideoWriter('output.mp4', self.fourcc, cameraFPS, (width, height))
         self.isRecording = False
+
+    def startRecording(self):
+        self.out.open('output.mp4', self.fourcc, self.cameraFPS, (1280, 720))
+
