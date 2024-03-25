@@ -7,7 +7,7 @@ from Recorder import Recorder, cut_and_save_video
 def main():
     cronometer = Cronometer()
     cronometer.start()
-    recorder = Recorder(1280, 720)
+    recorder = Recorder(1280, 720, 30)  # Change the last number to your camera's fps
     highlights_amount = 0
     while True:
         if not recorder.isRecording:

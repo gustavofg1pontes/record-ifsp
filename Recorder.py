@@ -12,10 +12,10 @@ def cut_and_save_video(output_file, start_time, end_time):
 
 
 class Recorder:
-    def __init__(self, width, height):
+    def __init__(self, width, height, cameraFPS):
         self.cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
         self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
         self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
         self.fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
-        self.out = cv2.VideoWriter('output.mp4', self.fourcc, 10, (width, height))
+        self.out = cv2.VideoWriter('output.mp4', self.fourcc, cameraFPS, (width, height))
         self.isRecording = False
